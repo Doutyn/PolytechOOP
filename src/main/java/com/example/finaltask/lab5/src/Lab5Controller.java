@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -19,6 +20,26 @@ import java.io.IOException;
 import java.util.*;
 
 public class Lab5Controller extends ControllerApplication {
+
+    private final ObservableList<String> listOfOptions = FXCollections.observableArrayList
+            ("1. The average value of a list of integers",
+                    "2. Prefix plus uppercase",
+                    "3. The square of numbers occurring once",
+                    "4. Alphabetically sorted strings with a specific letter",
+                    "5. Last element of collection",
+                    "6. Sum of even numbers",
+                    "7. Strings to map");
+
+    public void handleChoiceBoxAction() {
+        int selected = choiceMethod.getSelectionModel().getSelectedIndex();
+        if (selected != 3) {
+            extr.setVisible(false);
+            extraText.setVisible(false);
+        } else {
+            extr.setVisible(true);
+            extraText.setVisible(true);
+        }
+    }
     @FXML
     private TextField inputText;
 
@@ -29,10 +50,15 @@ public class Lab5Controller extends ControllerApplication {
     private TextArea resultText;
 
     @FXML
+    private Label extr;
+
+    @FXML
     private ChoiceBox<String> choiceMethod;
 
     @FXML
     private void initialize() {
+        extr.setVisible(false);
+        extraText.setVisible(false);
         choiceMethod.setItems(listOfOptions);
     }
 
@@ -52,68 +78,59 @@ public class Lab5Controller extends ControllerApplication {
         Platform.exit();
     }
 
-    private ObservableList<String> listOfOptions = FXCollections.observableArrayList
-            ("1. The average value of a list of integers",
-                    "2. Prefix plus uppercase",
-                    "3. The square of numbers occurring once",
-                    "4. Alphabetically sorted strings with a specific letter",
-                    "5. Last element of collection",
-                    "6. Sum of even numbers",
-                    "7. Strings to map");
-
     @FXML
     protected void startClickAction() {
         try {
             String method = choiceMethod.getValue();
             switch (method) {
-                case "1. The average value of a list of integers":
+                case "1. The average value of a list of integers" -> {
                     String[] strNum = inputText.getText().split("[,\\s]+");
                     ArrayList<Integer> listNum = new ArrayList<>();
                     for (String s : strNum) {
                         listNum.add(Integer.parseInt(s));
                     }
                     resultText.appendText(Utils.average(listNum) + "\n");
-                    break;
-                case "2. Prefix plus uppercase":
+                }
+                case "2. Prefix plus uppercase" -> {
                     String[] strWords = inputText.getText().split("[,\\s]+");
                     ArrayList<String> listWords = new ArrayList<>(List.of(strWords));
                     resultText.appendText(Utils.toUpperCaseAndAddPreffix(listWords) + "\n");
-                    break;
-                case "3. The square of numbers occurring once":
+                }
+                case "3. The square of numbers occurring once" -> {
                     String[] strNmb = inputText.getText().split("[,\\s]+");
                     ArrayList<Integer> listNmb = new ArrayList<>();
                     for (String s : strNmb) {
                         listNmb.add(Integer.parseInt(s));
                     }
                     resultText.appendText(Utils.toSquaredUnique(listNmb) + "\n");
-                    break;
-                case "4. Alphabetically sorted strings with a specific letter":
+                }
+                case "4. Alphabetically sorted strings with a specific letter" -> {
                     String[] wordsToSpl = inputText.getText().split("[,\\s]+");
                     ArrayList<String> listToSort = new ArrayList<>(List.of(wordsToSpl));
                     String extra = extraText.getText();
                     char letter = extra.charAt(0);
                     resultText.appendText(Utils.filterAndSortByStartingLetter(listToSort, letter) + "\n");
-                    break;
-                case "5. Last element of collection":
+                }
+                case "5. Last element of collection" -> {
                     String[] findLast = inputText.getText().split("[,\\s]+");
                     ArrayList<String> lastElem = new ArrayList<>(List.of(findLast));
                     resultText.appendText(Utils.getLastElementOrThrow(lastElem) + "\n");
-                    break;
-                case "6. Sum of even numbers":
+                }
+                case "6. Sum of even numbers" -> {
                     String[] strSumEven = inputText.getText().split("[,\\s]+");
                     int[] arrayEven = new int[strSumEven.length];
                     for (int i = 0; i < arrayEven.length; i++) {
                         arrayEven[i] = Integer.parseInt(strSumEven[i]);
                     }
                     resultText.appendText(Utils.getEvenOr0(arrayEven) + "\n");
-                    break;
-                case "7. Strings to map":
+                }
+                case "7. Strings to map" -> {
                     String[] wordsToMap = inputText.getText().split("[,\\s]+");
                     ArrayList<String> listToMap = new ArrayList<>(List.of(wordsToMap));
                     resultText.appendText(Utils.toStringMap(listToMap) + "\n");
-                    break;
-                default:
-                    break;
+                }
+                default -> {
+                }
             }
         }
         catch (Exception e) {

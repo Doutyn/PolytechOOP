@@ -19,12 +19,12 @@
             <Label alignment="BASELINE_LEFT" prefHeight="17.0" prefWidth="300.0" text="Method" BorderPane.alignment="CENTER" />
       </left>
       <right>
-         <Label alignment="BASELINE_LEFT" prefHeight="17.0" prefWidth="110.0" text="Extra data" BorderPane.alignment="CENTER" />
+         <Label fx:id="extr" alignment="BASELINE_LEFT" prefHeight="17.0" prefWidth="110.0" text="Extra data" BorderPane.alignment="CENTER" />
       </right>
    </BorderPane>
       <BorderPane prefHeight="8.0" prefWidth="418.0">
          <left>
-            <ChoiceBox fx:id="choiceMethod" prefHeight="25.0" prefWidth="300.0" BorderPane.alignment="CENTER" />
+            <ChoiceBox fx:id="choiceMethod" onAction="#handleChoiceBoxAction" prefHeight="25.0" prefWidth="300.0" BorderPane.alignment="CENTER" />
          </left>
       <right>
          <TextField fx:id="extraText" prefHeight="25.0" prefWidth="110.0" promptText="Only for letter" BorderPane.alignment="CENTER" />

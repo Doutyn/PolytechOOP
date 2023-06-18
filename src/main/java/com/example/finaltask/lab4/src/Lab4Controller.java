@@ -24,7 +24,7 @@ public class Lab4Controller extends ControllerApplication {
     @FXML
     private TextField inputMessage;
     @FXML
-    private Translate tr = new Translate();
+    private final Translate tr = new Translate();
     @FXML
     protected void makeChooseFile() {
         FileChooser fileChooser = new FileChooser();
