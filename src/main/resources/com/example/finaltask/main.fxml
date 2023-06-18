@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="300.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="com.example.finaltask.AppController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <Label text="Welcome! Choose your lab!" />
+    <Button onAction="#onLab1ButtonClick" prefHeight="25.0" prefWidth="100.0" text="Lab 1" />
+    <Button onAction="#onLab2ButtonClick" prefHeight="25.0" prefWidth="100.0" text="Lab 2" />
+    <Button onAction="#onLab3ButtonClick" prefHeight="25.0" prefWidth="100.0" text="Lab 3" />
+    <Button onAction="#onLab4ButtonClick" prefHeight="25.0" prefWidth="100.0" text="Lab 4" />
+    <Button onAction="#onLab5ButtonClick" prefHeight="25.0" prefWidth="100.0" text="Lab 5" />
+    <Button onAction="#onLab6ButtonClick" prefHeight="25.0" prefWidth="100.0" text="Lab 6" />
+    <Button onAction="#onExitButtonClick" prefHeight="25.0" prefWidth="70.0" text="Exit" />
+</VBox>

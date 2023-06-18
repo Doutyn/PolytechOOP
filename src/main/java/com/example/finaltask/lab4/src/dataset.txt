@@ -1,0 +1,11 @@
+Execute | Казнь
+avoid | Избегание
+charge | Рывок
+dispel magic | Снятие магии
+magic | магия
+holy nova | Святость
+holy | святой
+nova | сверхновая
+MYSTIC WAND | Магическая палочка
+mystic | мистический
+WAND | палка
