@@ -1,56 +1,56 @@
 package com.example.finaltask.lab6.src;
 
-import java.util.Random;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 
-public class AbstractProgram extends Thread {
+public class AbstractProgram implements Runnable {
+    @FXML
+    private TextArea result;
+    private final int timeInterval;
+    private ProgramState programState;
 
-    private ProgramState state;
-    private Thread stateDaemon;
-    private boolean startFlag = true;
-    public final Object monitor = new Object();
-
-    void rebootAP() {
-        this.state = ProgramState.RUNNING;
+    AbstractProgram(TextArea result) {
+        programState = ProgramState.UNKNOWN;
+        this.result = result;
+        result.appendText(Thread.currentThread().threadId() + " Lab starts with state: " + programState + "\n");
+        this.timeInterval = 5;
     }
 
-    public void stopAP() {
-        stateDaemon = null;
+    synchronized ProgramState getState() {
+        return programState;
     }
 
-    public ProgramState getStateAP() {
-        return state;
+    synchronized void setState(ProgramState programState) {
+        result.appendText("State change: " + programState + "\n");
+        this.programState = programState;
+        notify();
     }
 
     @Override
     public void run() {
-        Thread thread = new Thread(() -> {
-            Random random = new Random();
+        Thread daemonThread = new Thread(() -> {
             while (true) {
                 try {
-                    synchronized (monitor) {
-                        if (startFlag) {
-                            state = ProgramState.UNKNOWN;
-                            startFlag = false;
-                        } else {
-                            int newState;
-                            if (random.nextInt(10) <= 4) {
-                                newState = 2;
-                            } else if (random.nextInt(10) <= 7) {
-                                newState = 1;
-                            } else {
-                                newState = 3;
-                            }
-                            state = ProgramState.values()[newState];
-                        }
-                        monitor.notify();
+                    Thread.sleep(timeInterval);
+                    setState(ProgramState.getRandomState());
+                    result.appendText(Thread.currentThread().threadId() + " Abstract program state changed to " + programState + "\n");
+                    if (programState == ProgramState.FATAL_ERROR) {
+                        result.appendText(Thread.currentThread().threadId() + " Abstract program fatal error" + "\n");
+                        break;
                     }
-                    Thread.sleep(100);
                 } catch (InterruptedException e) {
-                    return;
+                    Thread.currentThread().interrupt();
                 }
             }
         });
-        thread.setDaemon(true);
-        thread.start();
+        daemonThread.setDaemon(true);
+        daemonThread.start();
+        result.appendText(Thread.currentThread().threadId() + " Daemon start" + "\n");
+        try {
+            daemonThread.join();
+            result.appendText(Thread.currentThread().threadId() + " Daemon end" + "\n");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }

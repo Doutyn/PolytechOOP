@@ -3,49 +3,55 @@ package com.example.finaltask.lab6.src;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
-public class Supervisor extends Thread {
-
+class Supervisor extends Thread {
     @FXML
-    TextArea result;
-    private final AbstractProgram program;
+    private TextArea result;
+    private final AbstractProgram abstractProgram;
 
-    public Supervisor(AbstractProgram program, TextArea result) {
-        this.program = program;
+    Supervisor(AbstractProgram abstractProgram, TextArea result) {
+        this.abstractProgram = abstractProgram;
         this.result = result;
     }
 
-    public void startProgram() {
-        program.start();
+    synchronized void startAbstractProgram() {
+        result.appendText(Thread.currentThread().threadId() + " Supervisor: Starting abstract program" + "\n");
+        abstractProgram.setState(ProgramState.RUNNING);
     }
 
-    public void rebootProgram() {
-        program.rebootAP();
-    }
-
-    public void stopProgram() {
-        program.stopAP();
+    synchronized void stopAbstractProgram() {
+        if (abstractProgram.getState() == ProgramState.RUNNING) {
+            result.appendText(Thread.currentThread().threadId() + " Supervisor: Stopping abstract program" + "\n");
+            abstractProgram.setState(ProgramState.STOPPING);
+        }
     }
 
     @Override
     public void run() {
-        result.appendText("Active thread: " + Thread.currentThread().getName() + "\n");
-        startProgram();
         while (true) {
-            synchronized (program.monitor) {
+            synchronized (abstractProgram) {
                 try {
-                    program.monitor.wait();
-                    result.appendText("State: " + program.getStateAP() + " " + Thread.currentThread().getName() + "\n");
-                    if (program.getStateAP() == ProgramState.STOPPING) {
-                        rebootProgram();
-                        result.appendText("State: " + program.getStateAP() + " " + Thread.currentThread().getName() + "\n");
-                    } else if (program.getStateAP() == ProgramState.FATAL_ERROR) {
-                        stopProgram();
-                        break;
-                    }
+                    abstractProgram.wait();
                 } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+
+                ProgramState state = abstractProgram.getState();
+
+                if (state == ProgramState.STOPPING) {
+                    result.appendText(Thread.currentThread().threadId() + " Supervisor: Restarting abstract program" + "\n");
+                    startAbstractProgram();
+                } else if (state == ProgramState.FATAL_ERROR) {
+                    result.appendText(Thread.currentThread().threadId() + " Supervisor: Terminating abstract program" + "\n");
                     break;
                 }
             }
+
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
         }
     }
 }

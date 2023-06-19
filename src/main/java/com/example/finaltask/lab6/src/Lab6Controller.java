@@ -35,14 +35,29 @@ public class Lab6Controller extends ControllerApplication {
 
     @FXML
     protected void startClickAction() {
-        AbstractProgram program = new AbstractProgram();
-        Supervisor supervisor = new Supervisor(program, result);
+        AbstractProgram abstractProgram = new AbstractProgram(result);
+        Supervisor supervisor = new Supervisor(abstractProgram, result);
+
+        Thread abstractLabThread = new Thread(abstractProgram);
         supervisor.start();
+
+        abstractLabThread.start();
+
         try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        supervisor.stopAbstractProgram();
+        supervisor.interrupt();
+
+        try {
+            abstractLabThread.join();
             supervisor.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            result.appendText("Interrupted exception :" + e.getMessage());
+            Thread.currentThread().interrupt();
         }
+        result.appendText(Thread.currentThread().threadId() + " Thread main ending..."  + "\n"  + "\n");
     }
 }
