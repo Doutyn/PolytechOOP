@@ -13,7 +13,7 @@ public class AbstractProgram implements Runnable {
         programState = ProgramState.UNKNOWN;
         this.result = result;
         result.appendText(Thread.currentThread().threadId() + " Lab starts with state: " + programState + "\n");
-        this.timeInterval = 5;
+        this.timeInterval = 100;
     }
 
     synchronized ProgramState getState() {
@@ -33,9 +33,8 @@ public class AbstractProgram implements Runnable {
                 try {
                     Thread.sleep(timeInterval);
                     setState(ProgramState.getRandomState());
-                    result.appendText(Thread.currentThread().threadId() + " Abstract program state changed to " + programState + "\n");
+                    result.appendText(Thread.currentThread().threadId() + " AP state changed to " + programState + "\n");
                     if (programState == ProgramState.FATAL_ERROR) {
-                        result.appendText(Thread.currentThread().threadId() + " Abstract program fatal error" + "\n");
                         break;
                     }
                 } catch (InterruptedException e) {

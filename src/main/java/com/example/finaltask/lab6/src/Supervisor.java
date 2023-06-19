@@ -14,13 +14,13 @@ class Supervisor extends Thread {
     }
 
     synchronized void startAbstractProgram() {
-        result.appendText(Thread.currentThread().threadId() + " Supervisor: Starting abstract program" + "\n");
+        result.appendText(Thread.currentThread().threadId() + " Supervisor: Starting AP" + "\n");
         abstractProgram.setState(ProgramState.RUNNING);
     }
 
     synchronized void stopAbstractProgram() {
         if (abstractProgram.getState() == ProgramState.RUNNING) {
-            result.appendText(Thread.currentThread().threadId() + " Supervisor: Stopping abstract program" + "\n");
+            result.appendText(Thread.currentThread().threadId() + " Supervisor: Stopping AP" + "\n");
             abstractProgram.setState(ProgramState.STOPPING);
         }
     }
@@ -38,16 +38,16 @@ class Supervisor extends Thread {
                 ProgramState state = abstractProgram.getState();
 
                 if (state == ProgramState.STOPPING) {
-                    result.appendText(Thread.currentThread().threadId() + " Supervisor: Restarting abstract program" + "\n");
+                    result.appendText(Thread.currentThread().threadId() + " Supervisor: Restarting AP\n");
                     startAbstractProgram();
                 } else if (state == ProgramState.FATAL_ERROR) {
-                    result.appendText(Thread.currentThread().threadId() + " Supervisor: Terminating abstract program" + "\n");
+                    result.appendText(Thread.currentThread().threadId() + " Supervisor: Terminating AP\n");
                     break;
                 }
             }
 
             try {
-                Thread.sleep(1);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

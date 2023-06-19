@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="440.0" prefWidth="554.0" spacing="20.0" xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.finaltask.lab1.src.Lab1Controller" stylesheets="@graphic.css">
+<VBox alignment="CENTER" prefHeight="440.0" prefWidth="554.0" spacing="20.0" xmlns="http://javafx.com/javafx/19"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finaltask.lab1.src.Lab1Controller" stylesheets="@graphic.css">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <Label text="Lab №1. Move Strategy" />
-   <Label alignment="BASELINE_LEFT" prefHeight="17.0" prefWidth="519.0" text="Start pos" />
+   <Label alignment="BASELINE_LEFT" prefHeight="17.0" prefWidth="519.0" text="Start pos"  />
    <TextField fx:id="startPos" promptText="Enter start position" prefHeight="25.0" prefWidth="87.0" />
    <Label alignment="BASELINE_LEFT" prefHeight="17.0" prefWidth="519.0" text="Modify" />
    <TextField fx:id="startModify" promptText="Enter modify" prefHeight="25.0" prefWidth="87.0" />

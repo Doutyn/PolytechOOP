@@ -15,22 +15,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class Lab3Controller extends ControllerApplication {
-    static public void segregate (Collection<? extends Chordal> srcCollection,
-                                  Collection<? super CommonHedgehog> Collection1,
-                                  Collection<? super Manul> Collection2,
-                                  Collection<? super Feline> Collection3) {
-        for (Chordal animals : srcCollection) {
-            if (animals instanceof CommonHedgehog) {
-                Collection1.add((CommonHedgehog) animals);
-            }
-            if (animals instanceof Manul) {
-                Collection2.add((Manul) animals);
-            }
-            if (animals instanceof Feline) {
-                Collection3.add((Feline) animals);
-            }
-        }
-    }
 
     @FXML
     private TextArea result;
@@ -80,6 +64,23 @@ public class Lab3Controller extends ControllerApplication {
         result.appendText(hengehogs1.toString() + feline1 + predatory1 + "\n");
         result.appendText(chordal2.toString() + manul2 + feline2 + "\n");
         result.appendText(insectivores3.toString() + predatory3_1 + predatory3_2 + "\n");
+    }
+
+    static public void segregate (Collection<? extends Chordal> srcCollection,
+                                  Collection<? super CommonHedgehog> Collection1,
+                                  Collection<? super Manul> Collection2,
+                                  Collection<? super Feline> Collection3) {
+        for (Chordal animals : srcCollection) {
+            if (animals instanceof CommonHedgehog) {
+                Collection1.add((CommonHedgehog) animals);
+            }
+            if (animals instanceof Manul) {
+                Collection2.add((Manul) animals);
+            }
+            if (animals instanceof Feline) {
+                Collection3.add((Feline) animals);
+            }
+        }
     }
 }
 
