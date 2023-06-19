@@ -26,7 +26,7 @@ public class Lab1Controller extends ControllerApplication {
     @FXML
     private TextField resultText;
 
-    private Hero billy = new Hero();
+    private final Hero billy = new Hero();
 
     @FXML
     protected void onBackButtonClick(ActionEvent event) throws IOException {
@@ -35,6 +35,7 @@ public class Lab1Controller extends ControllerApplication {
         Parent root = fxmlLoader.load();
         Stage newStage = new Stage();
         newStage.setScene(new Scene(root));
+        newStage.setTitle("Application");
         newStage.show();
         oldStage.close();
     }
@@ -65,7 +66,7 @@ public class Lab1Controller extends ControllerApplication {
     }
     @FXML
     protected void startClickAction() {
-        double basePose = 0, modify = 0;
+        double basePose, modify;
         try {
             String str  = startPos.getText();
             basePose = Double.parseDouble(str);

@@ -9,11 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -29,6 +27,7 @@ public class Lab2Controller extends ControllerApplication {
         Parent root = fxmlLoader.load();
         Stage newStage = new Stage();
         newStage.setScene(new Scene(root));
+        newStage.setTitle("Application");
         newStage.show();
         oldStage.close();
     }

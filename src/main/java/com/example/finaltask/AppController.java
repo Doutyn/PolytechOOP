@@ -19,6 +19,7 @@ public class AppController {
         Parent root = fxmlLoader.load();
         Stage newStage = new Stage();
         newStage.setScene(new Scene(root));
+        newStage.setTitle("Application");
         newStage.show();
         oldStage.close();
     }
@@ -29,23 +30,23 @@ public class AppController {
     @FXML
     protected void onLab2ButtonClick(ActionEvent event) throws IOException {
         openNewStage("lab2.fxml", event);
-    };
+    }
     @FXML
     protected void onLab3ButtonClick(ActionEvent event) throws IOException {
         openNewStage("lab3.fxml", event);
-    };
+    }
     @FXML
     protected void onLab4ButtonClick(ActionEvent event) throws IOException {
         openNewStage("lab4.fxml", event);
-    };
+    }
     @FXML
     protected void onLab5ButtonClick(ActionEvent event) throws IOException {
         openNewStage("lab5.fxml", event);
-    };
+    }
     @FXML
     protected void onLab6ButtonClick(ActionEvent event) throws IOException {
         openNewStage("lab6.fxml", event);
-    };
+    }
     @FXML
     protected void onExitButtonClick() {
         Platform.exit();

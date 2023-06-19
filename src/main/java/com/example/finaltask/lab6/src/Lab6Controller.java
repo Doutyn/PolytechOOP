@@ -24,6 +24,7 @@ public class Lab6Controller extends ControllerApplication {
         Parent root = fxmlLoader.load();
         Stage newStage = new Stage();
         newStage.setScene(new Scene(root));
+        newStage.setTitle("Application");
         newStage.show();
         oldStage.close();
     }

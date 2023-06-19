@@ -42,6 +42,7 @@ public class Lab3Controller extends ControllerApplication {
         Parent root = fxmlLoader.load();
         Stage newStage = new Stage();
         newStage.setScene(new Scene(root));
+        newStage.setTitle("Application");
         newStage.show();
         oldStage.close();
     }
@@ -58,7 +59,7 @@ public class Lab3Controller extends ControllerApplication {
                 new Manul());
         Collection<Chordal> predatory = Arrays.asList(new Feline(),
                 new Manul());
-        Collection<Chordal> hedgehogs = Arrays.asList(new CommonHedgehog());
+        Collection<Chordal> hedgehogs = List.of(new CommonHedgehog());
 
         Collection<Hedgehogs> hengehogs1 = new ArrayList<>();
         Collection<Feline> feline1 = new ArrayList<>();
